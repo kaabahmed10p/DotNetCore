@@ -11,3 +11,6 @@
 6. EF
 7. MVC / Angular
 
+EF:
+> dotnet ef migrations add testPG
+> dotnet ef database update

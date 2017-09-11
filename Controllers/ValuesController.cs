@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using DomainModel;
+using DomainModel.Model;
 
 namespace TodoApi.Controllers
 {
@@ -12,44 +14,47 @@ namespace TodoApi.Controllers
     {
 
         private readonly ILogger _logger;
-
-    public ValuesController(ILogger<ValuesController> logger)
-    {
-        _logger = logger;
-    }
+		private readonly IDataAccessProvider _dataAccessProvider;
+		
+		public ValuesController(IDataAccessProvider dataAccessProvider, ILogger<ValuesController> logger)
+		{
+			_dataAccessProvider = dataAccessProvider;
+			_logger = logger;
+		}
 
         // GET api/values
         [HttpGet]
-        public IEnumerable<string> Get()
-        {
-             _logger.LogInformation( "Getting item wihtout id");
-            return new string[] { "value1", "value2" };
-        }
+		public IEnumerable<DataEventRecord> Get()
+		{
+             _logger.LogInformation( "Getting item without id");
+			return _dataAccessProvider.GetDataEventRecords();
+		}
 
         // GET api/values/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public DataEventRecord Get(int id)
         {
-             _logger.LogWarning( "Getting item wih id - {0}", id);
-            return "value";
-        }
+             _logger.LogWarning( "Getting item with id - {0}", id);
+			return _dataAccessProvider.GetDataEventRecord(id);
+		}
+		
+		// POST api/values
+		[HttpPost]
+        public void Post([FromBody]DataEventRecord value)
+        {
+			_dataAccessProvider.AddDataEventRecord(value);
+		}
 
-        // POST api/values
-        [HttpPost]
-        public void Post([FromBody]string value)
-        {
-        }
+		[HttpPut("{id}")]
+		public void Put(long id, [FromBody]DataEventRecord value)
+		{
+			_dataAccessProvider.UpdateDataEventRecord(id, value);
+		}
 
-        // PUT api/values/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
-        {
-        }
-
-        // DELETE api/values/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
-    }
+		[HttpDelete("{id}")]
+		public void Delete(long id)
+		{
+			_dataAccessProvider.DeleteDataEventRecord(id);
+		}
+	}
 }

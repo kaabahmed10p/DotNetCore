@@ -10,6 +10,10 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
 using Microsoft.AspNetCore.Http;
+using DataAccessPostgreSqlProvider;
+using Microsoft.EntityFrameworkCore;
+using DomainModel;
+using Newtonsoft.Json;
 
 namespace TodoApi
 {
@@ -18,14 +22,31 @@ namespace TodoApi
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+            //var builder = new ConfigurationBuilder()
+            //    .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+            //    .AddJsonFile("config.json", optional: true, reloadOnChange: true);
+
+            //Configuration = builder.Build();
         }
 
-        public IConfiguration Configuration { get; }
+        public IConfiguration Configuration { get; set; }   
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc();
+            //services.AddMvc();
+            var sqlConnectionString = Configuration.GetConnectionString("DataAccessPostgreSqlProvider");
+			services.AddDbContext<DomainModelPostgreSqlContext>(options =>
+				options.UseNpgsql(
+					sqlConnectionString,
+					b => b.MigrationsAssembly("TodoApi")
+				)
+			);
+            services.AddScoped<IDataAccessProvider, DataAccessPostgreSqlProvider.DataAccessPostgreSqlProvider>();
+            services.AddMvc().AddJsonOptions(options =>
+            {
+                options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
