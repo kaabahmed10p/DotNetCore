@@ -21,9 +21,9 @@ namespace TodoApi
         {
             const String V = "http://127.0.0.1:1234";
             return WebHost.CreateDefaultBuilder(args)
-.UseStartup<Startup>()
-.UseUrls(V)
-.Build();
+						.UseStartup<Startup>()
+						.UseUrls(V)
+						.Build();
         }
     }
 }
