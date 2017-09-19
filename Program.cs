@@ -19,10 +19,10 @@ namespace TodoApi
 
         public static IWebHost BuildWebHost(string[] args)
         {
-            const String V = "http://127.0.0.1:1234";
+            const String address = "http://0.0.0.0:1234";
             return WebHost.CreateDefaultBuilder(args)
 						.UseStartup<Startup>()
-						.UseUrls(V)
+						.UseUrls(address)
 						.Build();
         }
     }

@@ -11,6 +11,13 @@
 6. MVC
 7. Middleware & logging - done
 
-EF:
+#### EF:
+-------------------------------
 > dotnet ef migrations add testPG
 > dotnet ef database update
+
+
+#### Docker:
+-----------------------------
+docker build -t todoapi .
+docker run -d -p 8013:1234 --name myapp8 todoapi
