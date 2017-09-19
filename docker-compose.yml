@@ -1,0 +1,33 @@
+version: '2'
+
+services:
+
+  web:
+    container_name: 'todoapi'
+    image: 'todoapi'
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - .:/var/www/aspnetcoreapp
+    ports:
+     - "1234:1234"
+    depends_on:
+     - "dbserver"
+    networks:
+      - aspnetcoreapp-network
+
+  dbserver:
+    image: postgres:latest
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_USER=damienbod
+      - POSTGRES_PASSWORD=damienbod
+   
+    networks:
+      - aspnetcoreapp-network
+
+networks:
+  aspnetcoreapp-network:
+    driver: bridge
