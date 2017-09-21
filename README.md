@@ -5,13 +5,19 @@
 -------------------------------
 1. Deployment Local (Windows with IIS & Linux with Nginx) - Done
 2. Deployment AWS App Service - Done
-2. Docker - Done (EF migration to run remaining)
-3. CLI
-4. Unit Test
+3. Docker - Done 
+4. CLI - Done
 5. EF - Done
 6. MVC
-7. Middleware & logging - done
-8. CI
+7. Middleware & logging - Done
+
+
+
+Things we might look into later :
+
+1. Unit Test
+2. CI
+3. Running migrations inside docker
 
 #### EF:
 -------------------------------
