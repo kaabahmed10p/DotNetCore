@@ -4,7 +4,7 @@
 #### TODO List:
 -------------------------------
 1. Deployment Local (Windows with IIS & Linux with Nginx) - Done
-2. Deployment AWS App Service - Done
+2. Deployment Azure App Service - Done
 3. Docker - Done 
 4. CLI - Done
 5. EF - Done
@@ -21,16 +21,17 @@ Things we might look into later :
 
 #### EF:
 -------------------------------
-> dotnet ef migrations add testPG
-> dotnet ef database update
+1. To add new migration file: dotnet ef migrations add testPG 
+2. To run migrations: dotnet ef database update
 
 
 #### Docker:
 -----------------------------
-To build: docker build -t todoapi .
-To run containedr: docker run -d -p 8013:1234 --name myapp8 todoapi
-To take shell: docker exec -it myapp8 /bin/bash
+1. To build: docker build -t todoapi .
+2. To run containedr: docker run -d -p 8013:1234 --name myapp8 todoapi
+3. To take shell: docker exec -it myapp8 /bin/bash
 
+Current limitation: need to run migrations manually on postgres container ... need to work around this issue
 
 
 ### Misc:
