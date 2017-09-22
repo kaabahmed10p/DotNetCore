@@ -47,7 +47,7 @@ namespace TodoApi
             {
                 options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
             });
-        }
+		}
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
@@ -57,11 +57,11 @@ namespace TodoApi
             app.Map("/map1", HandleMapTest1);
 
             app.Use(async (context, next) =>
-      {
-            // Do work that doesn't write to the Response.
-            await next.Invoke();
-            // Do logging or other work that doesn't write to the Response.
-        });
+			{
+				// Do work that doesn't write to the Response.
+				await next.Invoke();
+				// Do logging or other work that doesn't write to the Response.
+			});
 
             app.Map("/map2", HandleMapTest2);
 
@@ -75,9 +75,14 @@ namespace TodoApi
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseMvc();
+			app.UseMvc(routes =>
+			{
+				routes.MapRoute(
+					name: "default",
+					template: "{controller=Home}/{action=Index}/{id?}");
+			});
 
-            RegisterNotFoundHandler(app);
+			RegisterNotFoundHandler(app);
         }
 
         private static void HandleMapTest1(IApplicationBuilder app)
