@@ -56,15 +56,21 @@ POST http://127.0.0.1:1234/api/values :
 
 ### Deployment: 
 ------------------------
-Framework-dependent deployment (for IIS):
+1. Framework-dependent deployment (for IIS):
 >	dotnet publish -f netcoreapp2.0 -c Release
 
-Self-contained deployment:
+2. Self-contained deployment:
 >	dotnet publish -c Release -r win10-x64	
 >	dotnet publish -c release -r ubuntu.16.10-x64
 >	Add RuntimeIdentifiers:
 	<RuntimeIdentifiers>win10-x64;osx.10.11-x64;ubuntu.16.10-x64</RuntimeIdentifiers>
 
 Microsoft Azure App Service:
-> Deployment on cloud from VS: Type App Name, 
+1. Deployment on cloud from VS: Type App Name, 
 > select Subscription, Resource Group, App Service Plan
+
+### MVC:
+------------------------
+1. To display record on MVC page:
+http://localhost:4972/users
+
