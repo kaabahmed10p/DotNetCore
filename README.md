@@ -8,7 +8,7 @@
 3. Docker - Done 
 4. CLI - Done
 5. EF - Done
-6. MVC
+6. MVC - Done
 7. Middleware & logging - Done
 
 
